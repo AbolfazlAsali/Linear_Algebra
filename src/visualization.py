@@ -42,3 +42,22 @@ def plot_cumulative_variance(cum_var, save_path=None):
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     plt.savefig(save_path, bbox_inches="tight", dpi=150)
     plt.show()
+
+
+def plot_2d_scatter(T2, labels, save_path=None):
+    
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(T2[:, 0], T2[:, 1], c=labels, cmap="tab10", s=5, alpha=0.7)
+    plt.colorbar(scatter, ticks=range(10), label="Digit")
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.title("PCA 2D Projection of Digits")
+    plt.tight_layout()
+
+    if save_path is None:
+        save_path = os.path.join(PICS_DIR, "pca_2d_scatter.png")
+
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.savefig(save_path, bbox_inches="tight", dpi=150)
+    plt.show()
+

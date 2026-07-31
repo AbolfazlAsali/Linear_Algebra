@@ -3,6 +3,8 @@ from pathlib import Path
 from utils import load_data
 from centering import center_data
 from visualization import show_sample
+from pca import project_to_k_components
+from visualization import plot_2d_scatter
 from pca import compute_covariance, eigen_decompose
 from visualization import show_sample, plot_cumulative_variance
 from pca import compute_covariance, eigen_decompose, components_for_variance
@@ -51,8 +53,21 @@ def main():
     print(f"\nComponents needed for 90% variance: {k90}")
     print(f"Fraction of original 64 dimensions: {k90/64:.2%}")
     print(f"Cumulative variance at k={k90}: {cum_var[k90-1]:.4f}")
-
     plot_cumulative_variance(cum_var)
+
+
+
+    T10, W10 = project_to_k_components(B, eigenvectors, k=10)
+    print(f"\nT10 shape: {T10.shape}")
+    print(f"W10 shape: {W10.shape}")
+    np.save(data_dir / "transformed_data_k10.npy", T10)
+    np.save(data_dir / "projection_matrix_W.npy", W10)
+
+
+    
+    T2, _ = project_to_k_components(B, eigenvectors, k=2)
+    plot_2d_scatter(T2, y, save_path="../pics/pca_2d_scatter.png")
+    
 
 if __name__ == "__main__":
     main()

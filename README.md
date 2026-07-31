@@ -167,14 +167,14 @@ B_reconstructed = TWᵀ + μ
 
 <p align="center">
 
-<img src="pics/sample_digit.png" style="width:45%; height:400px; object-fit:contain;" alt="Sample Digit">
-<img src="pics/cumulative_variance.png" style="width:45%; height:400px; object-fit:contain;" alt="Explained Variance">
+<img src="pics/sample_digit.png" width="45%" alt="PCA Projection">
+<img src="pics/cumulative_variance.png" width="45%" alt="PCA Projection">
 
 </p>
 
 <p align="center">
 
-<img src="pics/pca_projection.png" width="45%" alt="PCA Projection">
+<img src="pics/pca_2d_scatter.png" width="45%" alt="PCA Projection">
 <img src="pics/reconstruction.png" width="45%" alt="Reconstruction">
 
 </p>
