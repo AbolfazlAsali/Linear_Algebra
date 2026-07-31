@@ -167,8 +167,8 @@ B_reconstructed = TWᵀ + μ
 
 <p align="center">
 
-<img src="pics/sample_digit.png" width="45%" alt="Sample Digit">
-<img src="pics/explained_variance.png" width="45%" alt="Explained Variance">
+<img src="pics/sample_digit.png" style="width:45%; height:600px; object-fit:contain;" alt="Sample Digit">
+<img src="pics/cumulative_variance.png" style="width:45%; height:600px; object-fit:contain;" alt="Explained Variance">
 
 </p>
 
