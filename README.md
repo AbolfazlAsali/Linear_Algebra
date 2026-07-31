@@ -175,7 +175,7 @@ B_reconstructed = TWᵀ + μ
 <p align="center">
 
 <img src="pics/pca_projection.png" width="45%" alt="PCA Projection">
-<img src="pics/reconstruction.png" width="45%" alt="Reconstruction">
+<img src="pics/reconstruction.png" width="60" alt="Reconstruction">
 
 </p>
 
