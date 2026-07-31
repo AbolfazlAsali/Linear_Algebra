@@ -1,4 +1,5 @@
 import numpy as np
+from pathlib import Path
 from utils import load_data
 from centering import center_data
 from visualization import show_sample
@@ -35,6 +36,11 @@ def main():
 
 
     eigenvalues, eigenvectors = eigen_decompose(C)
+    project_root = Path(__file__).resolve().parent.parent
+    data_dir = project_root / "data"
+    data_dir.mkdir(exist_ok=True)
+    np.save(data_dir / "eigenvalues.npy", eigenvalues)
+    np.save(data_dir / "eigenvectors.npy", eigenvectors)
     print(f"Top 5 eigenvalues: {eigenvalues[:5]}")
     print(f"Eigenvectors shape: {eigenvectors.shape}")
     print(f"Eigenvectors orthonormal: {np.allclose(eigenvectors.T @ eigenvectors, np.eye(64))}")
