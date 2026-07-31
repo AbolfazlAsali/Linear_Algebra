@@ -3,6 +3,9 @@ from utils import load_data
 from centering import center_data
 from visualization import show_sample
 from pca import compute_covariance, eigen_decompose
+from visualization import show_sample, plot_cumulative_variance
+from pca import compute_covariance, eigen_decompose, components_for_variance
+
 
 
 def main():
@@ -36,6 +39,14 @@ def main():
     print(f"Eigenvectors shape: {eigenvectors.shape}")
     print(f"Eigenvectors orthonormal: {np.allclose(eigenvectors.T @ eigenvectors, np.eye(64))}")
 
+
+
+    k90, cum_var = components_for_variance(eigenvalues, threshold=0.90)
+    print(f"\nComponents needed for 90% variance: {k90}")
+    print(f"Fraction of original 64 dimensions: {k90/64:.2%}")
+    print(f"Cumulative variance at k={k90}: {cum_var[k90-1]:.4f}")
+
+    plot_cumulative_variance(cum_var)
 
 if __name__ == "__main__":
     main()
