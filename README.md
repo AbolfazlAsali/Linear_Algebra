@@ -203,9 +203,15 @@ Linear_Algebra/
 │   ├── visualization.py
 │   └── utils.py
 │
-├── outputs/
-│   ├── digits/
-│   └── mnist/
+├── data/
+│   ├── centered_data.npy
+│   ├── eigenvalues.npy
+│   ├── eigenvectors.npy
+│   ├── projection_matrix_W.npy
+│   ├── reconstructed_data_k2.npy
+│   ├── reconstructed_data_k10.npy
+│   ├── reconstructed_data_k30.npy
+│   └── transformed_data_k10.npy
 │
 ├── report/
 │   └── Report.pdf
