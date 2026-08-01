@@ -17,8 +17,8 @@ def main():
     
     X, y = load_data()
 
-    print(f"X shape: {X.shape}")   # (1797, 64)
-    print(f"y shape: {y.shape}")   # (1797,)
+    print(f"X shape: {X.shape}")   
+    print(f"y shape: {y.shape}")   
 
 
     show_sample(X, y, index=0, save_path="../pics/sample_digit.png")
@@ -99,7 +99,35 @@ def main():
     plot_reconstruction_comparison(X, reconstructed_dict, sample_idx=0, 
                                   save_path="../pics/reconstruction_comparison_sample0.png")
 
-    
+
+
+
+    print("\n" + "="*50)
+    print("Stage 10: Analysis of m < n case (Rank Deficiency)")
+    print("="*50)
+
+    np.random.seed(42)
+    indices = np.random.choice(len(X), 50, replace=False)
+    X_small = X[indices]
+
+    print(f"Number of samples: {X_small.shape[0]}")
+    print(f"Number of features: {X_small.shape[1]}")
+
+    X_small_centered = X_small - X_small.mean(axis=0)
+
+    cov_small = (X_small_centered.T @ X_small_centered) / (X_small.shape[0] - 1)
+
+    eigenvalues_small, eigenvectors_small = np.linalg.eigh(cov_small)
+    eigenvalues_small = eigenvalues_small[::-1]
+
+    print(f"\nRank of covariance matrix: {np.linalg.matrix_rank(cov_small)}")
+    print(f"Number of non-zero eigenvalues: {np.sum(eigenvalues_small > 1e-10)}")
+    print(f"Number of zero (or near-zero) eigenvalues: {np.sum(eigenvalues_small <= 1e-10)}")
+
+    print(f"\nFirst 5 eigenvalues: {eigenvalues_small[:5]}")
+    print(f"Last 5 eigenvalues: {eigenvalues_small[-5:]}")
+
+
 
 if __name__ == "__main__":
     main()
