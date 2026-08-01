@@ -23,8 +23,6 @@ def show_sample(X, y, index=0, save_path=None):
     plt.show()
 
 
-
-
 def plot_cumulative_variance(cum_var, save_path=None):
 
     plt.figure(figsize=(6, 4))
@@ -61,3 +59,46 @@ def plot_2d_scatter(T2, labels, save_path=None):
     plt.savefig(save_path, bbox_inches="tight", dpi=150)
     plt.show()
 
+
+def plot_reconstruction_error(k_values, mse_values, save_path=None):
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(k_values, mse_values, 'o-', linewidth=2, markersize=8, color='#2E86AB')
+    plt.xlabel('Number of Components (k)', fontsize=12)
+    plt.ylabel('Mean Squared Error (MSE)', fontsize=12)
+    plt.title('Reconstruction Error vs Number of Principal Components', fontsize=14)
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    
+    if save_path is None:
+        save_path = os.path.join(PICS_DIR, "reconstruction_error.png")
+    
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.savefig(save_path, bbox_inches="tight", dpi=150)
+    plt.show()
+
+
+def plot_reconstruction_comparison(original, reconstructed_dict, sample_idx=0, save_path=None):
+    
+    n_plots = 1 + len(reconstructed_dict)
+    fig, axes = plt.subplots(1, n_plots, figsize=(3 * n_plots, 3))
+    
+    
+    axes[0].imshow(original[sample_idx].reshape(8, 8), cmap='gray')
+    axes[0].set_title('Original', fontsize=12)
+    axes[0].axis('off')
+    
+   
+    for idx, (k, reconstructed) in enumerate(sorted(reconstructed_dict.items()), start=1):
+        axes[idx].imshow(reconstructed[sample_idx].reshape(8, 8), cmap='gray')
+        axes[idx].set_title(f'k={k}', fontsize=12)
+        axes[idx].axis('off')
+    
+    plt.tight_layout()
+    
+    if save_path is None:
+        save_path = os.path.join(PICS_DIR, f"reconstruction_comparison_sample{sample_idx}.png")
+    
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.savefig(save_path, bbox_inches="tight", dpi=150)
+    plt.show()

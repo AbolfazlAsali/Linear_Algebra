@@ -8,6 +8,8 @@ from visualization import plot_2d_scatter
 from pca import compute_covariance, eigen_decompose
 from visualization import show_sample, plot_cumulative_variance
 from pca import compute_covariance, eigen_decompose, components_for_variance
+from reconstruction import reconstruct_data, compute_reconstruction_error
+from visualization import plot_reconstruction_error, plot_reconstruction_comparison
 
 
 
@@ -67,6 +69,36 @@ def main():
     
     T2, _ = project_to_k_components(B, eigenvectors, k=2)
     plot_2d_scatter(T2, y, save_path="../pics/pca_2d_scatter.png")
+
+
+
+       
+    print("\n" + "=" * 60)
+    print("Stage 9: Data Reconstruction and Error Analysis")
+    print("=" * 60)
+    
+    k_values = [2, 10, 30]
+    mse_values = []
+    reconstructed_dict = {}
+    
+    for k in k_values:
+        W = eigenvectors[:, :k]
+        T = B @ W
+        _, X_reconstructed = reconstruct_data(T, W, mean)
+        
+        mse = compute_reconstruction_error(X, X_reconstructed)
+        mse_values.append(mse)
+        reconstructed_dict[k] = X_reconstructed
+        
+        print(f"\nk={k}: MSE = {mse:.6f}")
+        np.save(data_dir / f"reconstructed_data_k{k}.npy", X_reconstructed)
+    
+    
+    plot_reconstruction_error(k_values, mse_values, save_path="../pics/reconstruction_error.png")
+    
+    plot_reconstruction_comparison(X, reconstructed_dict, sample_idx=0, 
+                                  save_path="../pics/reconstruction_comparison_sample0.png")
+
     
 
 if __name__ == "__main__":
