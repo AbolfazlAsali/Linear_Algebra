@@ -45,7 +45,7 @@ def main():
     data_dir.mkdir(exist_ok=True)
     np.save(data_dir / "eigenvalues.npy", eigenvalues)
     np.save(data_dir / "eigenvectors.npy", eigenvectors)
-    print(f"Top 5 eigenvalues: {eigenvalues[:5]}")
+    print(f"\nTop 5 eigenvalues: {eigenvalues[:5]}")
     print(f"Eigenvectors shape: {eigenvectors.shape}")
     print(f"Eigenvectors orthonormal: {np.allclose(eigenvectors.T @ eigenvectors, np.eye(64))}")
 
